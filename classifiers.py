@@ -260,8 +260,8 @@ class TransformerSentiment(Base):
         val = F.softmax(val, dim=0).detach().cpu().numpy()
         # To train the transformer in PyTorch we zero-indexed the labels.
         # Now we increment the predicted label by 1 to match with those from other classifiers.
-        pred = int(val.argmax()) + 1
-        return pred
+        pred = int(val.argmax())
+        return pred, val
 
     def predict(self, train_file: None, test_file: str, lower_case: bool) -> pd.DataFrame:
         "Use tqdm to display model prediction status bar"
